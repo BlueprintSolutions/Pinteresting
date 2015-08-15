@@ -1,0 +1,10 @@
+<p id="notice"><%= notice %></p>
+<div class="form-group">
+	<p>
+	  <strong>Description:</strong></br>
+	  <%= @pin.description %>
+	</p>
+</div>
+
+<%= link_to 'Edit', edit_pin_path(@pin), class: "btn btn-primary" %> |
+<%= link_to 'Back', pins_path %>

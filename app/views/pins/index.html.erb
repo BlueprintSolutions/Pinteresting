@@ -1,37 +1,20 @@
 <p id="notice"><%= notice %></p>
 
-<h1>Listing Pins</h1>
-<div class="form-group">
-  <table width="100%">
-    <thead>
-      <tr>
-        <th width="30%">Description</th>
-        <th width="20%">Image</th>
-        <th width="10%">User</th>
-        <th width="10%">Show</th>
-        <th width="10%">Edit</th>
-        <th width="10%">Delete</th>
-      </tr>
-    </thead>
+<div id="pins" class="transitions-enabled">
+  <% @pins.each do |pin| %>
+    <div class="box panel panel-default">
+      <%= pin.description %>
+      <%= image_tag pin.image.url (:medium) %>
+      <div class "panel-body">
+        <%= pin.user.email if pin.user %>
+        <%= link_to 'Show', pin_path(pin) %>
 
-    <tbody>
-      <% @pins.each do |pin| %>
-        <tr>
-          <td width="30%"><%= pin.description %></td>
-          <td width="20%"><%= image_tag pin.image.url (:medium) %></td>
-          <td width="10%"><%= pin.user.email if pin.user %></td>
-          <td width="10%"><%= link_to 'Show', pin %></td>
-          <% if pin.user == current_user %>
-            <td width="10%"><%= link_to 'Edit', edit_pin_path(pin) %></td>
-            <td width="10%"><%= link_to 'Destroy', pin, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-          <% end %>
-        </tr>
-      <% end %>
-    </tbody>
-  </table>
-
-  <br>
-  <% if user_signed_in? %>
-    <%= link_to 'New Pin', new_pin_path, class: "btn btn-primary" %>
+        <% if pin.user == current_user %>
+          <%= link_to 'Edit', edit_pin_path(pin) %>
+          <%= link_to 'Destroy', pin, method: :delete, data: { confirm: 'Are you sure?' } %>
+        <% end %>
+      </div>
+    </div>
   <% end %>
 </div>
+

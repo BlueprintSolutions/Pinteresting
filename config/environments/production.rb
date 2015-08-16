@@ -74,9 +74,23 @@ Rails.application.configure do
   # Use default logging formatter so that PID and timestamp are not suppressed.
   config.log_formatter = ::Logger::Formatter.new
 
+  # Note to set this to actual host
+  config.action_mailer.default_url_options = { :host => 'joshisawesome.herokuapp.com'}
+
   # Do not dump schema after migrations.
   config.active_record.dump_schema_after_migration = false
 
-  # Required for Heroku
-  config.action_mailer.default_url_options = { :host => 'joshisawesome.herokuapp.com' }
+  # Paperclip config:
+  Paperclip.options[:image_magick_path] = "/opt/ImageMagick/bin"
+  Paperclip.options[:command_path] = "/opt/ImageMagick/bin"
+
+  # Sets Paperclip to upload images to Amazon S3
+  config.paperclip_defaults = {
+    :storage => :s3,
+    :s3_credentials => {
+      :bucket => ENV['AWS_BUCKET'],
+      :access_key_id => ENV['AWS_ACCESS_KEY_ID'],
+      :secret_access_key => ENV['AWS_SECRET_ACCESS_KEY']
+  }
+}
 end

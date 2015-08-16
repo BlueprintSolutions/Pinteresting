@@ -1,12 +1,12 @@
-<p id="notice"><%= notice %></p>
-<div class="form-group">
-	<p>
-	  <strong>Description:</strong></br>
-	  <%= @pin.description %>
-	</p>
-</div>
+<%= image_tag @pin.image.url(:medium) %>
+
+<p>
+	<strong>Description:</strong></br>
+	<%= @pin.description %>
+</p>
+
 <%if @pin.user == current_user %>
 	<%= link_to 'Edit', edit_pin_path(@pin), class: "btn btn-primary" %> 
 <% end %>
 
-| <%= link_to 'Back', pins_path %>
+<%= link_to 'Back', pins_path %>
